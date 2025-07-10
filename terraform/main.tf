@@ -13,10 +13,11 @@ resource "azurerm_storage_account" "portfolio_sa" {
   location                 = azurerm_resource_group.portfolio_rg.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
+}
 
-  static_website {
-    index_document     = "index.html"
-    error_404_document = "index.html"
-  }
+resource "azurerm_storage_account_static_website" "portfolio_web" {
+  storage_account_id = azurerm_storage_account.portfolio_sa.id
+  index_document     = "index.html"
+  error_404_document = "index.html"
 }
 
