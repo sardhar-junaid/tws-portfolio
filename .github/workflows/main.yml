@@ -26,6 +26,6 @@ jobs:
         az storage blob upload-batch \
           --account-name junaidportfolio25 \
           --destination \$web \
-          --source . \
+          --source ./website \
           --overwrite
           --auth-mode login
