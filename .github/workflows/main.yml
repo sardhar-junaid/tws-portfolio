@@ -3,7 +3,7 @@ name: Deploy Portfolio to Azure Blob
 on:
   push:
     branches:
-      - main
+      - main  # Triggers when you push to the main branch
 
 permissions:
   contents: read
@@ -26,6 +26,6 @@ jobs:
         az storage blob upload-batch \
           --account-name junaidportfolio25 \
           --destination \$web \
-          --source ./website \
-          --overwrite
+          --source . \
+          --overwrite \
           --auth-mode login
