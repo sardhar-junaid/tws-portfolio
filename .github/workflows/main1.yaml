@@ -1,0 +1,40 @@
+name: Terraform Azure Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS1 }}
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.6.6
+
+    - name: Terraform Init
+      run: terraform init
+      working-directory: terraform
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+      working-directory: terraform
+
+    - name: Upload website content to Blob Storage
+      run: |
+        az storage blob upload-batch \
+          --account-name junaidportfoliosa123 \
+          --destination \$web \
+          --source . \
+          --auth-mode login
