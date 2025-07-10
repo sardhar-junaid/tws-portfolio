@@ -28,3 +28,4 @@ jobs:
           --destination \$web \
           --source . \
           --overwrite
+          --auth-mode login
